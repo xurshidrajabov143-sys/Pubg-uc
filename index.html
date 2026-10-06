@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PUBG UC — Demo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#050b12;color:#fff;font-family:Arial,sans-serif}
+.app{max-width:480px;margin:auto;min-height:100vh;background:linear-gradient(#06111b,#02070c)}
+header{padding:22px 18px;font-size:27px;font-weight:800;color:#ffd21c}main{padding:18px}
+.card{background:#0c1924;border:1px solid #263846;border-radius:18px;padding:20px;margin-bottom:16px}
+h1{font-size:25px;margin:0 0 10px}.muted{color:#9eabb5}
+input{width:100%;padding:15px;border-radius:12px;border:1px solid #40515e;background:#07111a;color:white;font-size:16px;margin:8px 0}
+button{width:100%;padding:15px;border:0;border-radius:12px;background:#ffd21c;color:#111;font-weight:800;font-size:16px;margin-top:10px}
+.hidden{display:none}.balance{font-size:34px;color:#ffd21c;font-weight:800;margin:10px 0}
+.task{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 0;border-bottom:1px solid #22313c}.task:last-child{border:0}
+.task button{width:auto;padding:10px 14px;margin:0}.nav{position:sticky;bottom:0;background:#071019;border-top:1px solid #24333e;display:flex;justify-content:space-around;padding:12px 4px;color:#9eabb5}.nav b{color:#ffd21c}
+.small{font-size:13px;color:#9eabb5}
+</style>
+</head>
+<body>
+<div class="app">
+<header>🎮 PUBG <span>UC</span></header>
+
+<main id="login">
+<div class="card">
+<h1>Telefon orqali kirish</h1>
+<p class="muted">Raqamingizni kiriting. Bu demo versiyada SMS kodi ekranda ko‘rsatiladi.</p>
+<input id="phone" type="tel" placeholder="+998 90 123 45 67">
+<button onclick="sendCode()">Davom etish →</button>
+</div>
+</main>
+
+<main id="otp" class="hidden">
+<div class="card">
+<h1>SMS kod</h1>
+<p class="muted">Demo kod: <b style="color:#ffd21c">123456</b></p>
+<input id="code" inputmode="numeric" maxlength="6" placeholder="6 xonali kod">
+<button onclick="verify()">Tasdiqlash</button>
+</div>
+</main>
+
+<main id="dashboard" class="hidden">
+<div class="card">
+<div class="muted">Mening balansim</div>
+<div class="balance"><span id="balance">120</span> UC</div>
+<div class="small">Demo balans — haqiqiy pul yoki UC emas.</div>
+</div>
+
+<div class="card">
+<h1>Topshiriqlar</h1>
+<div class="task"><div>Telegram kanaliga obuna bo‘lish<br><b>+10 UC</b></div><button onclick="reward(10)">Bajarish</button></div>
+<div class="task"><div>Do‘st taklif qilish<br><b>+15 UC</b></div><button onclick="reward(15)">Bajarish</button></div>
+<div class="task"><div>Ilovani baholash<br><b>+20 UC</b></div><button onclick="reward(20)">Bajarish</button></div>
+</div>
+<div class="card">
+<h1>UC olish</h1>
+<p class="muted">Bu prototipda UC mukofotlari faqat demo balans sifatida hisoblanadi.</p>
+<button onclick="alert('Keyingi bosqichda real mukofot tizimini ulaymiz.')">Davom etish</button>
+</div>
+</main>
+
+<div id="nav" class="nav hidden"><b>⌂ Bosh sahifa</b><span>▣ Topshiriqlar</span><span>🎁 UC olish</span><span>♙ Profil</span></div>
+</div>
+
+<script>
+function sendCode(){
+ const p=document.getElementById('phone').value.trim();
+ if(!p){alert('Telefon raqamingizni kiriting.');return}
+ document.getElementById('login').classList.add('hidden');
+ document.getElementById('otp').classList.remove('hidden');
+}
+function verify(){
+ if(document.getElementById('code').value!=='123456'){alert('Demo kod noto‘g‘ri.');return}
+ document.getElementById('otp').classList.add('hidden');
+ document.getElementById('dashboard').classList.remove('hidden');
+ document.getElementById('nav').classList.remove('hidden');
+}
+function reward(n){
+ let b=Number(document.getElementById('balance').textContent);
+ document.getElementById('balance').textContent=b+n;
+ alert('Demo mukofot: +'+n+' UC');
+}
+</script>
+</body>
+</html>
